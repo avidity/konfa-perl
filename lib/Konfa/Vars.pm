@@ -21,5 +21,4 @@ sub AUTOLOAD {
   $KONFA_CLASS->$method($var);
 }
 
-
 1;

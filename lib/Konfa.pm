@@ -21,14 +21,15 @@ sub import {
     die "$symbol is already defined by $class"
       if($class->can($symbol));
 
+    require Konfa::Vars; Konfa::Vars->import($class);
+
     {
       no strict 'refs';
-      require Konfa::Vars; Konfa::Vars->import($class);
-
       *{$symbol} = sub { 'Konfa::Vars' };
-      push(@EXPORT_OK, $symbol);
-      __PACKAGE__->export_to_level(1, $class, $symbol);
     };
+
+    push(@EXPORT_OK, $symbol);
+    __PACKAGE__->export_to_level(1, $class, $symbol);
   }
 }
 
@@ -86,7 +87,7 @@ sub _configuration { $_VALUES ||= $_[0]->allowed_variables }
 sub _store {
   my $class = shift;
   my $var   = shift;
-  my $value = shift;
+  my $value = (defined($_[0]) ? "$_[0]" : undef;
 
   return $class->on_variable_missing($var)
     unless(exists($class->_configuration->{$var}));
@@ -116,10 +117,10 @@ Konfa - Configuration encapsulation
 
   sub allowed_variables {
     {
-      show_stuff: 'yes',             # You can describe what the variable is for here
-      stuff_id: nil,                 # ID of the stuff we're using
-      lasers: 'off',
-      tasers: 'on',
+      show_stuff => 'yes',             # You can describe what the variable is for here
+      stuff_id   => undef,             # ID of the stuff we're using
+      lasers     => 'off',
+      tasers     => 'on',
     }
   }
 
@@ -127,8 +128,6 @@ Konfa - Configuration encapsulation
 
   # - elsewhere -
 
-  MyKonfa->init_with_yaml('my_values');
-  # - or -
   MyKonfa->init_with_env;
 
   # - use variables -
@@ -136,10 +135,12 @@ Konfa - Configuration encapsulation
   use MyKonfa;
 
   MyKonfa->get('stuff_id');
-  MyKonfa->true('show_stuff');
+  MyKonfa->true('show_stuff'); # Bool
+  MyKonfa->get('show_stuff');  # String
   MyKonfa->true('nosuchkey');  #  BOOM!
 
-  # - different way -
+  # - or -
+
   use MyKonfa vars => 'cfg';
 
   cfg->stuff_id;
