@@ -4,9 +4,9 @@ use strict;
 use warnings;
 
 our $AUTOLOAD;
-my  $KONFA_CLASS = 'Konfa';
+my  $KONFA_CLASS;
 
-sub import { $KONFA_CLASS = $_[1] }
+sub __call_chain { $KONFA_CLASS = $_[1]; $_[0] }
 
 sub AUTOLOAD {
   my ($prefix, $var) = $AUTOLOAD =~ /.+::(?:(is|isnt)_)?(.+)$/;
@@ -16,7 +16,6 @@ sub AUTOLOAD {
       : 'false'
     : 'get'
   ;
-
 
   $KONFA_CLASS->$method($var);
 }

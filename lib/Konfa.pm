@@ -2,10 +2,11 @@ package Konfa;
 
 use strict;
 use warnings;
-use base 'Exporter';
+use parent 'Exporter';
+
+use Carp;
 
 our @EXPORT_OK;
-our $_VALUES;
 
 my $RE_TRUE = qr/^\s*(?:1|true|yes|on)\s*$/oi;
 
@@ -21,11 +22,11 @@ sub import {
     die "$symbol is already defined by $class"
       if($class->can($symbol));
 
-    require Konfa::Vars; Konfa::Vars->import($class);
+    require Konfa::Vars;
 
     {
       no strict 'refs';
-      *{$symbol} = sub { 'Konfa::Vars' };
+      *{$symbol} = sub { Konfa::Vars->__call_chain($class) };
     };
 
     push(@EXPORT_OK, $symbol);
@@ -40,7 +41,7 @@ sub env_variable_prefix { 'APP_' }
 sub init_with_env {
   my $class = shift;
   my $prefix = $class->env_variable_prefix || '';
-  my $re_var = qr/^$prefix(.+)$/o;
+  my $re_var = qr/^$prefix(.+)$/;
 
   foreach my $var (keys(%ENV)) {
     next unless $var =~ $re_var;
@@ -55,7 +56,7 @@ sub on_variable_missing {
   my $class = shift;
   my $var   = shift;
 
-  die "Unsupported configuration variable $var";
+  croak "Unsupported configuration variable $var";
 }
 
 sub get {
@@ -63,7 +64,7 @@ sub get {
   my $var   = shift;
 
   die "Not initialized"
-    unless(defined($_VALUES));
+    unless($class->_is_initialized);
 
   return $class->on_variable_missing($var)
     unless(exists($class->_configuration->{$var}));
@@ -82,17 +83,24 @@ sub false { (shift->true(shift)) ? 0 : 1 }
 
 sub dump { return { %{$_[0]->_configuration} } }
 
-sub _configuration { $_VALUES ||= $_[0]->allowed_variables }
+
+{
+  my $_VALUES = {};
+  sub _is_initialized { defined($_VALUES->{$_[0]}) }
+  sub _configuration { $_VALUES->{$_[0]} ||= $_[0]->allowed_variables }
+  sub _reset { $_VALUES->{$_[0]} = undef }
+};
 
 sub _store {
   my $class = shift;
   my $var   = shift;
-  my $value = (defined($_[0]) ? "$_[0]" : undef;
+  my $value = (defined($_[0])) ? "$_[0]" : undef;
 
   return $class->on_variable_missing($var)
     unless(exists($class->_configuration->{$var}));
 
-  return $class->_configuration->{$var} = $value;  # FIXME: Stringify unless undef
+  $value = "$value" if(defined($value));
+  return $class->_configuration->{$var} = $value;
 }
 
 
@@ -111,7 +119,7 @@ Konfa - Configuration encapsulation
 
   package MyKonfa;
 
-  use base 'Konfa';
+  use parent 'Konfa';
 
   sub env_variable_prefix { 'APP_' }
 
