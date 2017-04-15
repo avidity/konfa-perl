@@ -36,7 +36,7 @@ if(config->is_send_email) {
    # do what is needed
 }
 ```
-See the module POD for more examples and API documentation.
+See the [module POD](../blob/master/lib/Konfa.pm) for more examples and API documentation.
 
 # License
 
