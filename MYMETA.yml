@@ -1,0 +1,25 @@
+---
+abstract: 'Configuration encapsulation'
+author:
+  - unknown
+build_requires: {}
+dynamic_config: 0
+generated_by: 'Module::Build version 0.4222, CPAN::Meta::Converter version 2.150005'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: '1.4'
+name: Konfa
+provides:
+  Konfa:
+    file: lib/Konfa.pm
+    version: '0.001'
+  Konfa::Vars:
+    file: lib/Konfa/Vars.pm
+requires:
+  Test::Class::Most: '0.08'
+  perl: v5.10.2
+resources:
+  license: http://dev.perl.org/licenses/
+version: '0.001'
+x_serialization_backend: 'CPAN::Meta::YAML version 0.018'

@@ -1,0 +1,13 @@
+Build.pl
+lib/Konfa.pm
+lib/Konfa/Vars.pm
+MANIFEST			This list of files
+t/konfa.t
+t/lib/MyOtherConfig.pm
+t/lib/MyTestConfig.pm
+t/tests/Konfa/TestBase.pm
+t/tests/Konfa/TestInitFromEnv.pm
+t/tests/Konfa/TestMultipleModules.pm
+t/tests/Konfa/TestOnVariableMissing.pm
+t/tests/Konfa/TestReadVariables.pm
+t/tests/Konfa/TestVars.pm

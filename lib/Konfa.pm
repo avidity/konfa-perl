@@ -7,7 +7,7 @@ use parent 'Exporter';
 use Carp;
 
 our @EXPORT_OK;
-our $VERSION = '0.1.0';
+our $VERSION = '0.001';
 
 my $RE_TRUE = qr/^\s*(?:1|true|yes|on)\s*$/oi;
 
