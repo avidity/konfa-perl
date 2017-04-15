@@ -20,7 +20,7 @@ sub env_variable_prefix { 'APP_' }
 sub allowed_variables {
   {
     'api_key' => nil,
-    'send_email' => 'on',
+    'feature_enabled' => 'yes',
   }
 }
 
@@ -32,7 +32,7 @@ AppConfig->init_with_env;
 
 use AppConfig vars => 'config';
 
-if(config->is_send_email) {
+if(config->is_feature_enabled) {
    # do what is needed
 }
 ```
