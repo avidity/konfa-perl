@@ -9,6 +9,7 @@ sub allowed_variables {
     no_default => undef,
     my_truthy  => 'yes',
     my_falsy   => 'no',
+    my_ref     => [1, 2, 3],
   };
 }
 

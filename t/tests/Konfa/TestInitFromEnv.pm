@@ -1,6 +1,8 @@
 package Konfa::TestInitFromEnv;
 use Test::Class::Most parent => 'Konfa::TestBase';
 
+use MyTestConfig;
+
 my %TEST_ENV = (
   KONFA_MY_STRING => "from env",
   KONFA_MY_TRUTHY => "off",
@@ -11,7 +13,6 @@ my %TEST_ENV = (
 
 sub startup : Tests(startup => 1) {
   shift->next::method;
-  use MyTestConfig;
 
   throws_ok { MyTestConfig->get('my_string'); } qr/(?i)initialized/, "not yet initialized";
 }

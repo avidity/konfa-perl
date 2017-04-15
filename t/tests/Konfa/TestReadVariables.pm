@@ -15,6 +15,11 @@ sub test_values_are_strings : Test(1) {
   is(MyTestConfig->get('my_number'), '10');
 }
 
+sub test_refs_are_stringified : Test(2) {
+  like(MyTestConfig->get('my_ref'), qr/^ARRAY\(0x[a-f0-9]+\)$/);
+  is(ref(MyTestConfig->get('my_ref')), '');
+}
+
 sub test_undef_not_stringified : Test(1) {
   is(MyTestConfig->get('no_default'), undef);
 }
@@ -42,13 +47,14 @@ sub test_get_undeclared_value : Test(1) {
 }
 
 sub test_dump : Test(1) {
-  is_deeply(
+  cmp_deeply(
     MyTestConfig->dump, {
       my_string  => 'the string',
       my_number  => 10,
       no_default => undef,
       my_truthy  => 'yes',
       my_falsy   => 'no',
+      my_ref     => re(qr/^ARRAY\(0x[0-9a-f]+\)$/),
     }
   );
 }

@@ -86,7 +86,7 @@ sub dump { return { %{$_[0]->_configuration} } }
 {
   my $_VALUES = {};
   sub _is_initialized { defined($_VALUES->{$_[0]}) }
-  sub _configuration { $_VALUES->{$_[0]} ||= $_[0]->allowed_variables }
+  sub _configuration { $_VALUES->{$_[0]} ||= $_[0]->_init_default() }
   sub _reset { $_VALUES->{$_[0]} = undef }
 };
 
@@ -98,8 +98,16 @@ sub _store {
   return $class->on_variable_missing($var)
     unless(exists($class->_configuration->{$var}));
 
-  $value = "$value" if(defined($value));
   return $class->_configuration->{$var} = $value;
+}
+
+sub _init_default {
+  my %copy = %{shift->allowed_variables};
+  foreach my $key (keys(%copy)) {
+    $copy{$key} = "$copy{$key}" if(ref($copy{$key}));
+  }
+
+  return \%copy;
 }
 
 
