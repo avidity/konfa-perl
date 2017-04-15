@@ -309,11 +309,14 @@ configuration value using a key not defined in C<allowed_variables>.
 
 The default behaviour is to C<croak>.
 
-=head1 LICENSE
+=head1 LICENSE INFORMATION
 
 Copyright 2016 - 2017 Gunnar Hansson, Avidity AB, All Rights Reserved.
 
-This program is free software; you can redistribute it and/or modify it under
-the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+For more details, see the full text of the licenses, see the file LICENSE or visit
+C<perlgpl> or C<perlartistic>.
 
 =cut
