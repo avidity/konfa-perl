@@ -86,7 +86,7 @@ sub dump { return { %{$_[0]->_configuration} } }
 {
   my $_VALUES = {};
   sub _is_initialized { defined($_VALUES->{$_[0]}) }
-  sub _configuration { $_VALUES->{$_[0]} ||= $_[0]->_init_default() }
+  sub _configuration { $_VALUES->{$_[0]} ||= $_[0]->_init_default }
   sub _reset { $_VALUES->{$_[0]} = undef }
 };
 
@@ -173,7 +173,7 @@ available here:.
 Konfa aims to solve some of the common mishaps related to application configration
 such as:
 
-=over
+=over 4
 
 =item Bugs attributed to misspelt configuration variable names
 
@@ -182,6 +182,51 @@ such as:
 =item Seamlessly reading configuration values from either the environment or YAML (or any other source for that matter)
 
 =back
+
+=head2 VALUES
+
+For the sake of simplicity and compatability with configuration values consumed
+from various sources, values are always stringified. This means that hashes and
+arrays are not supported out of the box, but can be implemented like this:
+
+
+  package MyKonfa
+  use parent Konfa
+
+  sub allowed_variables {
+    {
+      names => 'gunnar, simone, cabelinho'
+    }
+  }
+
+  sub as_list {
+    my ($class, $key) = shift;
+
+    return [split(/\s*,\*/, $class->get($key))];
+  }
+
+  MyKonfa->get('names');     # "gunnar, simone, cabelinho"
+  MyConfa->as_list('names'); # ["gunnar","simone","cabelinho"]
+
+=head2 BOOLEANS
+
+The C<true> and C<false> methods can help you use a value as a boolean. The
+following values are interpreted as true:
+
+=over
+
+=item C<"on">
+
+=item C<"1">
+
+=item C<"yes">
+
+=item C<"true">
+
+=back
+
+As a consequence, any other value is considered false. The original value can be
+accessed through C<get>.
 
 =head1 API
 
@@ -252,6 +297,17 @@ Specifies a prefix to scope variables when initialized from the environment.
   Konfa->init_from_env;
   Konfa->get('home'); # Returns value of environment variable C<MY_PREFIX_HOME>
 
+=head2 on_variable_missing
+
+  sub on_variable_missing {
+    my ($class, $variable_name) = @_;
+    ...
+  }
+
+This method will be called by Konfa when attempting to retrieve or store a
+configuration value using a key not defined in C<allowed_variables>.
+
+The default behaviour is to C<croak>.
 
 =head1 LICENSE
 
