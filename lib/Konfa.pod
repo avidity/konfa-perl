@@ -94,23 +94,11 @@ arrays are not supported out of the box, but can be implemented like this:
 
 =head2 BOOLEANS
 
-The C<true> and C<false> methods can help you use a value as a boolean. The
-following values are interpreted as true:
-
-=over
-
-=item C<"on">
-
-=item C<"1">
-
-=item C<"yes">
-
-=item C<"true">
-
-=back
+The C<true()> and C<false()> methods can help you use a value as a boolean. The
+following values are interpreted as true: C<on>, C<1>, C<yes> and C<true>.
 
 As a consequence, any other value is considered false. The original value can be
-accessed through C<get>.
+accessed through C<get()>.
 
 =head1 API
 
