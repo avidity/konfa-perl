@@ -1,0 +1,10 @@
+\.perlbrew-autouse
+^README.md$
+^MYMETA\.yml$
+^MYMETA\.json$
+^\.git
+^blib/
+^_build/
+^Build$
+\.SKIP$
+.*\.bak

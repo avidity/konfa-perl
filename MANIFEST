@@ -1,7 +1,10 @@
 Build.pl
 lib/Konfa.pm
+lib/Konfa.pod
 lib/Konfa/Vars.pm
+LICENSE
 MANIFEST			This list of files
+README
 t/konfa.t
 t/lib/MyOtherConfig.pm
 t/lib/MyTestConfig.pm
