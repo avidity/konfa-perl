@@ -1,6 +1,6 @@
 # Konfa
 
-Perl port of the Ruby [Konfa](https://github/avidity/konfa) configuration interface.
+Perl port of the Ruby [Konfa](https://github.com/avidity/konfa) configuration interface.
 
 Konfa aims to solve some of the common mishaps related to application configration
 such as:
