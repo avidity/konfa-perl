@@ -1,17 +1,18 @@
 package Konfa::TestMultipleModules;
 use Test::Class::Most parent => 'Konfa::TestBase';
 
+use MyTestConfig vars => 'config';
+use MyOtherConfig vars => 'other';
 
 sub startup : Tests(startup) {
   shift->next::method;
 
-  use MyTestFeatures vars => 'features';
-  use MyTestConfig vars => 'config';
-
   $ENV{KONFA_NO_DEFAULT} = 'set for MyTestConfig';
-  $ENV{OTHER_NO_DEFAULT} = 'set for MyTestFeatures';
+  $ENV{OTHER_NO_DEFAULT} = 'set for MyOtherConfig';
 
-  MyTestFeatures->init_with_env;
+  MyOtherConfig->_reset;
+
+  MyOtherConfig->init_with_env;
   MyTestConfig->init_with_env;
 }
 
@@ -23,18 +24,18 @@ sub shutdown : Tests(shutdown) {
 }
 
 sub test_use_two_modules_in_parallel : Test(2) {
-  is(MyTestFeatures->get('my_string'), 'in features', 'variable from MyTestFeatures');
+  is(MyOtherConfig->get('my_string'), 'in other', 'variable from MyOtherConfig');
   is(MyTestConfig->get('my_string'), 'the string', 'variable from MyTestConfig');
 }
 
 
 sub test_use_two_modules_in_parallel_by_symbol : Test(2) {
-  is(features->my_string, 'in features', 'variable from MyTestFeatures through symbol');
+  is(other->my_string, 'in other', 'variable from MyOtherConfig through symbol');
   is(config->my_string, 'the string', 'variable from MyTestConfig through symbol');
 }
 
 sub test_init_multiple_from_env : Test(2) {
-  is(MyTestFeatures->get('no_default'), 'set for MyTestFeatures', 'variable from MyTestFeatures from env');
+  is(MyOtherConfig->get('no_default'), 'set for MyOtherConfig', 'variable from MyOtherConfig from env');
   is(MyTestConfig->get('no_default'), 'set for MyTestConfig', 'variable from MyTestConfig from env');
 }
 

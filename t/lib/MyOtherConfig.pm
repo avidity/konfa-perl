@@ -1,4 +1,4 @@
-package MyTestFeatures;
+package MyOtherConfig;
 
 use parent 'Konfa';
 
@@ -6,7 +6,7 @@ our $MISSING_CB;
 
 sub allowed_variables {
   {
-    my_string  => 'in features',
+    my_string  => 'in other',
     no_default => undef,
   };
 }

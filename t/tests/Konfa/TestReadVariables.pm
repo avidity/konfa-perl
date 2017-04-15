@@ -3,7 +3,8 @@ use Test::Class::Most parent => 'Konfa::TestBase';
 
 sub startup : Tests(startup) {
   shift->next::method;
-  MyTestConfig->init_with_env
+
+  MyTestConfig->init_with_env;
 }
 
 sub test_get_string : Test(1) {

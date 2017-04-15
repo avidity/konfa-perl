@@ -1,9 +1,10 @@
 package Konfa::TestVars;
 use Test::Class::Most parent => 'Konfa::TestBase';
 
+use MyTestConfig vars => 'the_var';
+
 sub startup : Tests(startup) {
   shift->next::method;
-  use MyTestConfig vars => 'the_var';
   MyTestConfig->init_with_env;
 }
 
