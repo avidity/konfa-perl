@@ -1,6 +1,6 @@
 # Konfa
 
-Perl port of the Ruby [Konfa](https://github/avidity/konfa) configuration interface.
+Perl port of the Ruby [Konfa](https://github.com/avidity/konfa) configuration interface.
 
 Konfa aims to solve some of the common mishaps related to application configration
 such as:
@@ -19,8 +19,8 @@ use parent 'Konfa';
 sub env_variable_prefix { 'APP_' }
 sub allowed_variables {
   {
-    'api_key' => nil,
-    'send_email' => 'on',
+    'api_key' => undef,
+    'feature_enabled' => 'yes',
   }
 }
 
@@ -32,7 +32,7 @@ AppConfig->init_with_env;
 
 use AppConfig vars => 'config';
 
-if(config->is_send_email) {
+if(config->is_feature_enabled) {
    # do what is needed
 }
 ```
