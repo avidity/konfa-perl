@@ -1,3 +1,5 @@
+# Copyright 2016 - 2017 Gunnar Hansson, Avidity AB, All Rights Reserved.
+
 package Konfa::Vars;
 
 use strict;
