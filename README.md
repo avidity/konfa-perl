@@ -19,7 +19,7 @@ use parent 'Konfa';
 sub env_variable_prefix { 'APP_' }
 sub allowed_variables {
   {
-    'api_key' => nil,
+    'api_key' => undef,
     'feature_enabled' => 'yes',
   }
 }
