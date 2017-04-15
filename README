@@ -1,7 +1,46 @@
-Konfa is Copyright (C) 2016, 2017, Gunnar Hansson
+Konfa is Copyright (C) 2016, 2017, Gunnar Hansson, Avidity AB
 
 This program is distributed in the hope that it will be
 useful, but it is provided “as is” and without any express
 or implied warranties. For details, see the full text of
 the license in the file LICENSE.
 
+CONTACT POINTS
+--------------
+
+code@avidity.se
+
+homepage: http://avidity.se
+
+OVERVIEW
+--------
+
+Konfa.pm is a configuration encapsulator that normalises access to config values
+throughout an application. It implements a few mechanisms to avoid mistakes when
+dealing with configuration in a large, long lived application.
+
+DOCUMENTATION
+-------------
+
+The following documentation is available:
+
+* POD in perldoc format (type "perldoc Konfa" on the command line.)
+
+INSTALLATION INSTRUCTIONS
+-------------------------
+
+Currently, this module is not on CPAN, so installation is manual:
+
+
+  git clone git@github.com:avidity/konfa-perl
+  cd konfa-perl
+  perl Build.pl
+  ./Build installdeps
+  ./Build test
+  ./Build install
+
+COMMENTS/FEEDBACK
+-----------------
+
+Please email your feedback, comments, questions to the email address at the top
+of this document.
