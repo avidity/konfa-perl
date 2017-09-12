@@ -45,4 +45,13 @@ sub test_unknown_key : Test(1) {
   } qr/variable not found/, 'variable could not be found';
 }
 
+sub test_return_value : Test(1) {
+  MyTestConfig->_reset;
+  is_deeply(
+    MyTestConfig->init_with_hashref($_[0]->hashref),
+    MyTestConfig->dump,
+    'Returns copy of values'
+  );
+}
+
 1;
