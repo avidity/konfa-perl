@@ -9,7 +9,7 @@ use parent 'Exporter';
 use Carp;
 
 our @EXPORT_OK;
-our $VERSION = '0.001';
+our $VERSION = '0.002';
 
 my $RE_TRUE = qr/^\s*(?:1|true|yes|on)\s*$/oi;
 
@@ -49,6 +49,16 @@ sub init_with_env {
 
     $class->_store(lc($1), $ENV{$var});
   }
+
+  $class->dump;
+}
+
+sub init_with_hashref {
+  my $class = shift;
+  my $hash  = shift;
+
+  $class->_store($_, $hash->{$_})
+    foreach(keys(%{$hash}));
 
   $class->dump;
 }
