@@ -4,12 +4,13 @@ package Konfa;
 
 use strict;
 use warnings;
+use version;
 use parent 'Exporter';
 
 use Carp;
 
 our @EXPORT_OK;
-our $VERSION = '0.001';
+our $VERSION = version->declare("v0.0.2");
 
 my $RE_TRUE = qr/^\s*(?:1|true|yes|on)\s*$/oi;
 
