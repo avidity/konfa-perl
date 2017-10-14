@@ -36,7 +36,20 @@ if(config->is_feature_enabled) {
    # do what is needed
 }
 ```
-See the [module POD](../master/lib/Konfa.pm) for more examples and API documentation.
+See the [module documentation](../master/lib/Konfa.pod) for more examples and complete API reference.
+
+# Installation
+
+Because Konfa is not (yet) on CPAN, it has to be manually installed (assuming Module::Build is available):
+
+```
+  git clone git@github.com:avidity/konfa-perl
+  cd konfa-perl
+  perl Build.pl
+  ./Build installdeps
+  ./Build test
+  ./Build install
+```
 
 # License
 

@@ -14,3 +14,6 @@ t/tests/Konfa/TestMultipleModules.pm
 t/tests/Konfa/TestOnVariableMissing.pm
 t/tests/Konfa/TestReadVariables.pm
 t/tests/Konfa/TestVars.pm
+Makefile.PL
+META.yml
+META.json

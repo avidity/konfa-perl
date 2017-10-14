@@ -11,3 +11,6 @@ Build.bat
 *.o
 *.bs
 .perlbrew-autouse
+/*.tar.gz
+/META.*
+/Makefile.PL

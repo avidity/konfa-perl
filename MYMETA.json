@@ -24,7 +24,7 @@
    "provides" : {
       "Konfa" : {
          "file" : "lib/Konfa.pm",
-         "version" : "0.001"
+         "version" : "v0.0.2"
       },
       "Konfa::Vars" : {
          "file" : "lib/Konfa/Vars.pm"
@@ -36,6 +36,6 @@
          "http://dev.perl.org/licenses/"
       ]
    },
-   "version" : "0.001",
+   "version" : "v0.0.2",
    "x_serialization_backend" : "JSON::PP version 2.27400_02"
 }
